@@ -1,0 +1,53 @@
+CREATE DATABASE proveedores;
+USE proveedores;
+
+--Creamos tablas no dependientes
+CREATE TABLE empleado (
+  nif_emp INT UNSIGNED NOT NULL PRIMARY KEY,
+  nom_emp VARCHAR(100) NOT NULL,
+  apellido_emp VARCHAR(100) NOT NULL,
+  tel_emp VARCHAR(100) NOT NULL
+  );
+
+CREATE TABLE ejemplar (
+  id_ejem INT UNSIGNED NOT NULL PRIMARY KEY,
+  fecha_ejem DATE NOT NULL,
+  numpag_ejem INT NOT NULL,
+  numejem INT NOT NULL
+  );
+  
+CREATE TABLE seccion (
+  id_sec INT UNSIGNED NOT NULL PRIMARY KEY,
+  titulo_sec VARCHAR(100) NOT NULL,
+  ext_sec INT NOT NULL
+  );
+
+--Creamos tablas dependientes
+CREATE TABLE sucursal (
+  cod_suc INT UNSIGNED NOT NULL PRIMARY KEY,
+  dom_suc VARCHAR(100) NOT NULL,
+  tel_suc VARCHAR(100) NOT NULL
+  );
+  
+CREATE TABLE revista (
+  num_reg INT UNSIGNED NOT NULL PRIMARY KEY,
+  titulo_rev VARCHAR(100) NOT NULL,
+  periodicidad VARCHAR(100) NOT NULL,
+  tipo_rev VARCHAR(100) NOT NULL
+  );
+
+CREATE TABLE periodista (
+  nif_emp INT UNSIGNED NOT NULL PRIMARY KEY,
+  nom_emp VARCHAR(100) NOT NULL,
+  tel_emp VARCHAR(100) NOT NULL,
+  esp_per VARCHAR(100) NOT NULL
+  );
+
+--Creamos tablas de las relaciones
+CREATE TABLE revista_sucursal (
+  num_reg1 INT UNSIGNED NOT NULL,
+  cod_suc1 INT UNSIGNED NOT NULL,
+  FOREIGN KEY (num_reg1) REFERENCES revista(num_reg),
+  FOREIGN KEY (cod_suc1) REFERENCES sucursal(cod_suc)
+  );
+
