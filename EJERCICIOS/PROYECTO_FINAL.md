@@ -29,3 +29,52 @@ precio y categoría.
 un código de categoría único.
 
 ● Una pieza sólo puede pertenecer a una categoría.
+
+A continuación, el diagrama E-R y código SQL de la base de datos:
+
+![image](https://user-images.githubusercontent.com/104698382/174450647-1e865af7-b897-4943-bbb7-abc8a0ee770d.png)
+
+
+CREATE DATABASE proveedores;
+
+USE proveedores;
+
+-- Creamos tablas no dependientes 
+
+CREATE TABLE categoria ( 
+  cod_cat INT UNSIGNED NOT NULL PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL
+); 
+
+CREATE TABLE proveedor ( 
+  cod_prov VARCHAR(100) NOT NULL PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  direccion VARCHAR(100) NOT NULL,
+  ciudad VARCHAR(100) NOT NULL,
+  provincia INT UNSIGNED NOT NULL
+); 
+
+-- Creamos tablas dependientes 
+
+CREATE TABLE pieza ( 
+  cod_pza VARCHAR(100) NOT NULL PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  color VARCHAR(100) NOT NULL,
+  precio FLOAT NOT NULL,
+  cod_cat1 INT UNSIGNED NOT NULL,
+  FOREIGN KEY (cod_cat1) REFERENCES categoria(cod_cat)
+); 
+
+
+-- Creamos tablas de las relaciones 
+
+CREATE TABLE suministra (
+  cod_prov1 VARCHAR(100) NOT NULL,
+  cod_pza1 VARCHAR(100) NOT NULL,
+  cantidad INT UNSIGNED NOT NULL,
+  fecha_sum DATE NOT NULL,
+  FOREIGN KEY (cod_prov1) REFERENCES proveedor(cod_prov),
+  FOREIGN KEY (cod_pza1) REFERENCES pieza(cod_pza)
+); 
+
+
